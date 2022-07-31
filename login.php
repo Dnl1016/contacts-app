@@ -7,7 +7,7 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["email"]) || empty($_POST["password"])) {
       $error = "Please fill all the fileds.";
-    } else if (!str_contains($_POST["email"], "@")) {
+    } else if (isset($_POST["email"]) && !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
       $error = "Email format is incorrect.";
     } else {
       $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
